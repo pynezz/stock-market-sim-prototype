@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 554eaf2162917f24d85365a695b090c1
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Neou
+  fontNames:
+  - Neou
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 81c4f483b848c3c4c94d2d7e52b2ce07, type: 3}
+  - {fileID: 12800000, guid: a0b67b6bfb051eb418d5e9c93e6b8235, type: 3}
+  - {fileID: 12800000, guid: 22da364cde9261c4fa4680b7ec0d6cef, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
