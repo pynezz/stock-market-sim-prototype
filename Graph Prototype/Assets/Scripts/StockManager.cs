@@ -50,9 +50,7 @@ public class StockManager : MonoBehaviour
     {
         float newNumber = Random.Range(0, _stock1Price);
         float changeAmt = Random.Range(-5, 5);
-        float oldPrice = _stock1Price;
-
-        
+        float oldPrice = _stock1Price;        
 
         if (change)
         {
