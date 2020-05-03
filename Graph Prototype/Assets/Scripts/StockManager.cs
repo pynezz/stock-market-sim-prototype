@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -38,7 +39,7 @@ public class StockManager : MonoBehaviour
 
     private void Update()
     {
-        _stock1PriceText.text = "$ " + _stock1Price.ToString();
+        _stock1PriceText.text = "$ " + _stock1Price.ToString("F2"); //F2 is two decimals
     }
 
     #endregion
@@ -49,15 +50,39 @@ public class StockManager : MonoBehaviour
     {
         float newNumber = Random.Range(0, _stock1Price);
         float changeAmt = Random.Range(-5, 5);
+        float oldPrice = _stock1Price;
+
+        
 
         if (change)
         {
-            newNumber = Mathf.Ceil(newNumber + changeAmt);
-            _stock1Price = (newNumber / 2) + _stock1Price;
+            float oneMinPrice = oldPrice;
+            float oneHourPrice = oneMinPrice;
         }
         else if (!change)
         {
-            
+            if (changeAmt < 0 && number == 1)
+            {
+                float randomAmt = Random.Range(0f, 2f);
+                float maxPrice = Mathf.Clamp(_stock1Price, randomAmt * _stock1Price * Mathf.Sqrt((_stock1Price -randomAmt)+randomAmt) + _stock1Price - randomAmt, randomAmt * 30);
+                if (maxPrice != 0)
+                {
+                    float randomFloat = Random.Range(0f, 2f);
+                    Debug.Log("Random float: " + randomFloat);
+                    _stock1Price += randomFloat;
+                    if (randomFloat < randomAmt + 0.5f)
+                    {
+                        float randFloat = Random.Range(0f, 5f);
+                        randFloat = Mathf.Sqrt(randFloat);
+                        _stock1Price -= _stock1Price - randFloat;
+                    }
+                }
+                else if (maxPrice == 0)
+                {
+                    maxPrice = _stock1Price;
+                }
+                Debug.Log(_stock1Price);
+            }
         }
     }
 
@@ -80,22 +105,22 @@ public class StockManager : MonoBehaviour
                 if (min == 60)
                 {
                     min = 0;
+                    RandomNumber(true, 0);
                     //1 hour 
                 }
             }
             int mI = 1;
-            int mA = 3;
+            int mA = 4;
             int number = Random.Range(mI, mA);          //Number = 1 or 2
-            bool change = false;                        //change = false
-            if (number % 2 == 0)                        //If (1 or 2) is an even number
+            if (number % 3 == 0)                        //If number is dividable with 3
             {
-                mI = Random.Range(1, mI + 1);
-                change = !change;                       //change = true
-                RandomNumber(change, number);           //RamdomNumber = true, 2 
+                mA = Random.Range(1, mA + 1);
+                RandomNumber(false, number);            //RamdomNumber = false, X 
             }
             else if (number % 2 == 1)                   //If number is an odd number
             {
-                RandomNumber(change, number);           //RandomNumber = false, 1
+                mA = Random.Range(mI, mA);
+                RandomNumber(false, number);            //RandomNumber = false, X
             }            
         }
         StartCoroutine(StockUpdateMin(60));
